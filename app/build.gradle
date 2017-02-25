@@ -1,9 +1,17 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
+
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
+
+    signingConfigs {
+        release
+    }
+
     defaultConfig {
         applicationId "com.calebprior.boilerplate"
         minSdkVersion 16
@@ -12,27 +20,86 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+
+            signingConfig signingConfigs.release
+        }
+        debug {
+            applicationIdSuffix ".debug"
         }
     }
+
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
 }
 
+kapt {
+    generateStubs = true
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile "com.android.support:multidex:1.0.1"
+
+    // Android support libraries
+    compile "com.android.support:design:$androidSupport_version"
+    compile "com.android.support:appcompat-v7:$androidSupport_version"
+    compile "com.android.support:transition:$androidSupport_version"
+    compile "com.android.support:support-core-utils:$androidSupport_version"
+    compile "com.android.support.constraint:constraint-layout:$constraintLayout_version"
+
+    // Dagger 2
+    compile "com.google.dagger:dagger:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    provided "org.glassfish:javax.annotation:10.0-b28"
+
+    // DI
+    compile "com.gitlab.NobleworksSoftware.NobleInjection:android-injection-service:$nobleInjection_version"
+    compile "com.gitlab.NobleworksSoftware.NobleInjection:android-injection-service-kotlin:$nobleInjection_version"
+    compile "com.gitlab.NobleworksSoftware.NobleInjection:generic-component-compiler:$nobleInjection_version"
+    compile "com.gitlab.NobleworksSoftware.NobleInjection:generic-component-runtime:$nobleInjection_version"
+
+    // Kotlin
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    // Anko
+    compile "org.jetbrains.anko:anko-sdk15:$anko_version"
+    compile "org.jetbrains.anko:anko-common:$anko_version"
+    compile "org.jetbrains.anko:anko-design:$anko_version"
+    compile "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
+
+    // RxBindings
+    compile "com.jakewharton.rxbinding:rxbinding-kotlin:$rxBindings_version"
+    compile "com.jakewharton.rxbinding:rxbinding-design-kotlin:$rxBindings_version"
+    compile "com.jakewharton.rxbinding:rxbinding-appcompat-v7-kotlin:$rxBindings_version"
+
+    // KAndroid - helps remove various boilerplate code
+    compile "com.pawegio.kandroid:kandroid:$kandroid_version"
+
+    // View Management
+    compile "com.bluelinelabs:conductor:$conductor_version"
+
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.1.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
+
     testCompile 'junit:junit:4.12'
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
-repositories {
-    mavenCentral()
+
+try {
+    def props = new Properties()
+
+    props.load(new FileInputStream(rootProject.file("release.properties")))
+
+    android.signingConfigs.release.storeFile file(props.keyStore)
+    android.signingConfigs.release.storePassword props.keyStorePassword
+    android.signingConfigs.release.keyAlias props.keyAlias
+    android.signingConfigs.release.keyPassword props.keyAliasPassword
+} catch (Exception ignored) {
 }
