@@ -47,6 +47,8 @@ dependencies {
 
     compile "com.android.support:multidex:1.0.1"
 
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+
     // Android support libraries
     compile "com.android.support:design:$androidSupport_version"
     compile "com.android.support:appcompat-v7:$androidSupport_version"
@@ -85,6 +87,11 @@ dependencies {
     // View Management
     compile "com.bluelinelabs:conductor:$conductor_version"
 
+    // Leak Canary
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -102,4 +109,6 @@ try {
     android.signingConfigs.release.keyAlias props.keyAlias
     android.signingConfigs.release.keyPassword props.keyAliasPassword
 } catch (Exception ignored) {
+}
+buildscript {
 }

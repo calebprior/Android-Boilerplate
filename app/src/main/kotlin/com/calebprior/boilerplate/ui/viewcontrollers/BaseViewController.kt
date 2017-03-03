@@ -6,6 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bluelinelabs.conductor.Controller
+import com.bluelinelabs.conductor.ControllerChangeHandler
+import com.bluelinelabs.conductor.ControllerChangeType
+import com.calebprior.boilerplate.BoilerplateApplication
+import com.calebprior.boilerplate.UpdateOnViewBound
 import com.calebprior.boilerplate.flowcontrol.FlowController
 import com.calebprior.boilerplate.ui.CustomProgressBar
 import com.calebprior.boilerplate.ui.presenters.Presenter
@@ -15,6 +19,9 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.find
 import org.jetbrains.anko.inputMethodManager
 import javax.inject.Inject
+import kotlin.reflect.KProperty
+import kotlin.reflect.full.declaredMemberProperties
+import kotlin.reflect.jvm.isAccessible
 
 
 abstract class BaseViewController(
@@ -24,6 +31,8 @@ abstract class BaseViewController(
     abstract fun viewContent(): Int
     open fun presenter(): Presenter<*> = Presenter<BaseView>(flowController)
     open fun onViewBound(view: View) {}
+
+    private var hasExited: Boolean = false
 
     @Inject
     lateinit var flowController: FlowController
@@ -36,6 +45,16 @@ abstract class BaseViewController(
     override fun onAttach(view: View) {
         applicationContext?.inject(this)
         presenter().attachView(this)
+
+        // Call the getter for each property marked with UpdateOnViewBound, to force onChange to run
+        this.javaClass.kotlin.declaredMemberProperties
+                .filterIsInstance<KProperty<*>>()
+                .filter { it.annotations.any { it.annotationClass == UpdateOnViewBound::class } }
+                .forEach {
+                    it.isAccessible = true
+                    it.getter.call(this)
+                }
+
         onViewBound(view)
     }
 
@@ -71,5 +90,22 @@ abstract class BaseViewController(
         val snackBar = Snackbar.make(activity !!.find(id), message, length)
         snackBar.setAction(actionText, { action() })
         snackBar.show()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        if (hasExited) {
+            BoilerplateApplication.refWatcher.watch(this)
+        }
+    }
+
+    override fun onChangeEnded(changeHandler: ControllerChangeHandler, changeType: ControllerChangeType) {
+        super.onChangeEnded(changeHandler, changeType)
+
+        hasExited = ! changeType.isEnter
+        if (isDestroyed) {
+            BoilerplateApplication.refWatcher.watch(this)
+        }
     }
 }

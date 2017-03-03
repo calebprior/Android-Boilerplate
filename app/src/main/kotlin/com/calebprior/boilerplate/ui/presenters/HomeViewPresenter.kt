@@ -19,4 +19,7 @@ class HomeViewPresenter(
         }
     }
 
+    fun next() {
+        flowController.goToTest()
+    }
 }

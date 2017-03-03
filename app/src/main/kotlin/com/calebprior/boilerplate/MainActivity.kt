@@ -1,7 +1,7 @@
 package com.calebprior.boilerplate
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import com.bluelinelabs.conductor.Conductor
 import com.calebprior.boilerplate.flowcontrol.FlowController
 import com.nobleworks_software.injection.android.kotlin.inject
@@ -25,5 +25,11 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         flowController.attachRouter(router)
 
         flowController.launchHomeScreen()
+    }
+
+    override fun onBackPressed() {
+        if (! flowController.onBackPressed()) {
+            super.onBackPressed()
+        }
     }
 }

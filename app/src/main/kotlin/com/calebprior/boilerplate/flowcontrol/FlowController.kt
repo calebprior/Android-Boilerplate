@@ -10,4 +10,6 @@ interface FlowController {
     fun onBackPressed(): Boolean
 
     fun attachRouter(router: Router)
+
+    fun goToTest()
 }
