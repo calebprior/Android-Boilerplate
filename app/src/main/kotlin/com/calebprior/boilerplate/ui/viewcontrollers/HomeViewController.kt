@@ -11,6 +11,7 @@ import com.calebprior.boilerplate.ui.presenters.HomeViewPresenter
 import com.calebprior.boilerplate.ui.views.HomeView
 import com.jakewharton.rxbinding.view.clicks
 import com.pawegio.kandroid.find
+import org.jetbrains.anko.onClick
 import javax.inject.Inject
 
 class HomeViewController(args: Bundle? = null) : BaseViewController(args), HomeView {
@@ -27,11 +28,11 @@ class HomeViewController(args: Bundle? = null) : BaseViewController(args), HomeV
     })
 
     override fun onViewBound(view: View) {
-        view.find<Button>(R.id.button).clicks().subscribe {
+        view.find<Button>(R.id.button).onClick {
             presenter.onButtonPressed()
         }
 
-        view.find<Button>(R.id.button2).clicks().subscribe {
+        view.find<Button>(R.id.button2).onClick {
             presenter.next()
         }
     }
