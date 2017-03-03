@@ -22,7 +22,7 @@ class HomeViewController(args: Bundle? = null) : BaseViewController(args), HomeV
     override fun presenter() = presenter
 
     @UpdateOnViewBound
-    private var textViewText by changeAwareProperty("start", onChange = {
+    private var textViewText by changeAwareProperty("start", onChanged = {
         view?.find<TextView>(R.id.textView)?.text = it
     })
 

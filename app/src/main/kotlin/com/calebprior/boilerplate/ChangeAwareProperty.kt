@@ -5,14 +5,14 @@ import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
 
-fun <T> changeAwareProperty(initialValue: T, onChange: (newValue: T) -> Unit): ReadWriteProperty<Any?, T>
+fun <T> changeAwareProperty(initialValue: T, onChanged: (newValue: T) -> Unit): ReadWriteProperty<Any?, T>
         = object : ObservableProperty<T>(initialValue) {
 
-    override fun afterChange(property: KProperty<*>, oldValue: T, newValue: T) = onChange(newValue)
+    override fun afterChange(property: KProperty<*>, oldValue: T, newValue: T) = onChanged(newValue)
 
     override fun getValue(thisRef: Any?, property: KProperty<*>): T {
         val temp = super.getValue(thisRef, property)
-        onChange(temp)
+        onChanged(temp)
         return temp
     }
 }
