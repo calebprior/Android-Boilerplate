@@ -60,6 +60,7 @@ abstract class BaseViewController(
 
     override fun onDetach(view: View) {
         presenter().detachView()
+        stopLoading()
     }
 
     override fun showLoading() {
@@ -67,7 +68,7 @@ abstract class BaseViewController(
     }
 
     override fun stopLoading() {
-        progressBar.dialog?.cancel()
+        progressBar.stop()
     }
 
     override fun hideKeyboard() {
@@ -94,6 +95,7 @@ abstract class BaseViewController(
 
     override fun onDestroy() {
         super.onDestroy()
+        stopLoading()
 
         if (hasExited) {
             BoilerplateApplication.refWatcher.watch(this)

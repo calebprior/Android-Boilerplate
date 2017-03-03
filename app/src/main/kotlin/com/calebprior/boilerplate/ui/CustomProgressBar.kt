@@ -15,6 +15,11 @@ class CustomProgressBar {
     var dialog: Dialog? = null
         private set
 
+    fun stop() {
+        dialog?.cancel()
+        dialog = null
+    }
+
     fun show(context: Context,
              title: CharSequence? = null,
              cancelable: Boolean = false,
