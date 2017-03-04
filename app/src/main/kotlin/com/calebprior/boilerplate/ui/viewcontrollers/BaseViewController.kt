@@ -18,6 +18,7 @@ import com.nobleworks_software.injection.android.kotlin.inject
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.find
 import org.jetbrains.anko.inputMethodManager
+import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 import kotlin.reflect.KProperty
 import kotlin.reflect.full.declaredMemberProperties
@@ -38,6 +39,8 @@ abstract class BaseViewController(
     lateinit var flowController: FlowController
 
     private val progressBar = CustomProgressBar()
+
+    val subs = CompositeSubscription()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View
             = inflater.inflate(viewContent(), container, false)
@@ -61,6 +64,7 @@ abstract class BaseViewController(
     override fun onDetach(view: View) {
         presenter().detachView()
         stopLoading()
+        subs.clear()
     }
 
     override fun showLoading() {

@@ -28,13 +28,14 @@ class HomeViewController(args: Bundle? = null) : BaseViewController(args), HomeV
     })
 
     override fun onViewBound(view: View) {
-        view.find<Button>(R.id.button).onClick {
-            presenter.onButtonPressed()
-        }
-
-        view.find<Button>(R.id.button2).onClick {
-            presenter.next()
-        }
+        subs.addAll(
+                view.find<Button>(R.id.button).clicks().subscribe {
+                    presenter.onButtonPressed()
+                },
+                view.find<Button>(R.id.button2).clicks().subscribe {
+                    presenter.next()
+                }
+        )
     }
 
     override fun setText(newText: String) {
