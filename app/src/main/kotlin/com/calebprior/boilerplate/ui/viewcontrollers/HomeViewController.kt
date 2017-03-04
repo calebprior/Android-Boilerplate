@@ -11,7 +11,7 @@ import com.calebprior.boilerplate.ui.presenters.HomeViewPresenter
 import com.calebprior.boilerplate.ui.views.HomeView
 import com.jakewharton.rxbinding.view.clicks
 import com.pawegio.kandroid.find
-import org.jetbrains.anko.onClick
+import rx.Subscription
 import javax.inject.Inject
 
 class HomeViewController(args: Bundle? = null) : BaseViewController(args), HomeView {
@@ -27,16 +27,10 @@ class HomeViewController(args: Bundle? = null) : BaseViewController(args), HomeV
         view?.find<TextView>(R.id.textView)?.text = it
     })
 
-    override fun onViewBound(view: View) {
-        subs.addAll(
-                view.find<Button>(R.id.button).clicks().subscribe {
-                    presenter.onButtonPressed()
-                },
-                view.find<Button>(R.id.button2).clicks().subscribe {
-                    presenter.next()
-                }
-        )
-    }
+    override fun subscriptionMappings(view: View) = mapOf(
+            view.find<Button>(R.id.button).clicks() to { presenter.onButtonPressed() },
+            view.find<Button>(R.id.button2).clicks() to { presenter.next() }
+    )
 
     override fun setText(newText: String) {
         textViewText = newText

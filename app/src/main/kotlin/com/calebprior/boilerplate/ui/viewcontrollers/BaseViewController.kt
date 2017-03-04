@@ -18,6 +18,7 @@ import com.nobleworks_software.injection.android.kotlin.inject
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.find
 import org.jetbrains.anko.inputMethodManager
+import rx.Observable
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 import kotlin.reflect.KProperty
@@ -32,6 +33,8 @@ abstract class BaseViewController(
     abstract fun viewContent(): Int
     open fun presenter(): Presenter<*> = Presenter<BaseView>(flowController)
     open fun onViewBound(view: View) {}
+    open fun subscriptionMappings(view: View) = emptyMap<Observable<Unit>, () -> Unit>()
+
 
     private var hasExited: Boolean = false
 
@@ -57,6 +60,11 @@ abstract class BaseViewController(
                     it.isAccessible = true
                     it.getter.call(this)
                 }
+
+        subscriptionMappings(view).forEach {
+            observable, action ->
+            subs.add(observable.subscribe { action.invoke() })
+        }
 
         onViewBound(view)
     }
