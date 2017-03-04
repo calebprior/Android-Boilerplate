@@ -9,7 +9,7 @@
     android:background="@android:color/white">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textView_counterText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
@@ -21,30 +21,32 @@
         tools:text="Hello World"/>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button_increment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
-        android:text="Button"
+        android:padding="5dp"
+        android:text="Increment Counter"
         android:textColor="@android:color/white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView_counterText"/>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button_openNewScreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
-        android:text="Button"
+        android:padding="5dp"
+        android:text="Open New Screen"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"/>
+        app:layout_constraintTop_toBottomOf="@+id/button_increment"/>
 
     <TextView
         android:id="@+id/textView2"

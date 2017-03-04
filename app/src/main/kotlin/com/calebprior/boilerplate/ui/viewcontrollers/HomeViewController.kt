@@ -11,7 +11,6 @@ import com.calebprior.boilerplate.ui.presenters.HomeViewPresenter
 import com.calebprior.boilerplate.ui.views.HomeView
 import com.jakewharton.rxbinding.view.clicks
 import com.pawegio.kandroid.find
-import rx.Subscription
 import javax.inject.Inject
 
 class HomeViewController(args: Bundle? = null) : BaseViewController(args), HomeView {
@@ -26,12 +25,12 @@ class HomeViewController(args: Bundle? = null) : BaseViewController(args), HomeV
 
     @UpdateOnViewBound
     private var textViewText by changeAwareProperty("start", onChanged = {
-        view?.find<TextView>(R.id.textView)?.text = it
+        view?.find<TextView>(R.id.textView_counterText)?.text = it
     })
 
     override fun subscriptionMappings(view: View) = mapOf(
-            view.find<Button>(R.id.button).clicks() to { presenter.onButtonPressed() },
-            view.find<Button>(R.id.button2).clicks() to { presenter.next() }
+            view.find<Button>(R.id.button_increment).clicks() to { presenter.onButtonPressed() },
+            view.find<Button>(R.id.button_openNewScreen).clicks() to { presenter.next() }
     )
 
     override fun incrementCounter() {
