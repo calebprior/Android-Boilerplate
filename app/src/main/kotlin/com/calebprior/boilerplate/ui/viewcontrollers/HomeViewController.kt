@@ -13,13 +13,11 @@ import com.jakewharton.rxbinding.view.clicks
 import com.pawegio.kandroid.find
 import javax.inject.Inject
 
-class HomeViewController(args: Bundle? = null) : BaseViewController(args), HomeView {
-
-    @Inject
-    lateinit var presenter: HomeViewPresenter
+class HomeViewController(
+        args: Bundle? = null
+) : BaseViewController<HomeViewPresenter>(args), HomeView {
 
     override fun viewContent() = R.layout.view_home
-    override fun presenter() = presenter
 
     override fun subscriptionMappings(view: View) = mapOf(
             view.find<Button>(R.id.button_increment).clicks() to { presenter.onButtonPressed() },

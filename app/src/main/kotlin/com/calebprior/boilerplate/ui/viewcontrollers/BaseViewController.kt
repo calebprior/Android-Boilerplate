@@ -26,15 +26,16 @@ import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.jvm.isAccessible
 
 
-abstract class BaseViewController(
+abstract class BaseViewController<P : Presenter<*>>(
         args: Bundle?
 ) : Controller(args), BaseView, AnkoLogger {
 
     abstract fun viewContent(): Int
-    open fun presenter(): Presenter<*> = Presenter<BaseView>(flowController)
     open fun onViewBound(view: View) {}
     open fun subscriptionMappings(view: View) = emptyMap<Observable<Unit>, () -> Unit>()
 
+    @Inject
+    lateinit var presenter: P
 
     private var hasExited: Boolean = false
 
@@ -50,7 +51,7 @@ abstract class BaseViewController(
 
     override fun onAttach(view: View) {
         applicationContext?.inject(this)
-        presenter().attachView(this)
+        presenter.attachView(this)
 
         // Call the getter for each property marked with UpdateOnViewBound, to force onChange to run
         // This allows the the configured mappings to update their respective views with the current
@@ -72,7 +73,7 @@ abstract class BaseViewController(
     }
 
     override fun onDetach(view: View) {
-        presenter().detachView()
+        presenter.detachView()
         stopLoading()
         subs.clear()
     }
