@@ -15,8 +15,8 @@
     </style>
 
     <style name="ProgressBarStyle" parent="AppTheme">
-        <item name="colorAccent">@color/colorPrimary</item>
-        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">@color/colorAccent</item>
         <item name="android:background">@android:color/transparent</item>
     </style>
 
