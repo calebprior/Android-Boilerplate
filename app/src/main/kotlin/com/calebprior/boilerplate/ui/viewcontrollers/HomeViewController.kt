@@ -21,17 +21,17 @@ class HomeViewController(args: Bundle? = null) : BaseViewController(args), HomeV
     override fun viewContent() = R.layout.view_home
     override fun presenter() = presenter
 
+    override fun subscriptionMappings(view: View) = mapOf(
+            view.find<Button>(R.id.button_increment).clicks() to { presenter.onButtonPressed() },
+            view.find<Button>(R.id.button_openNewScreen).clicks() to { presenter.next() }
+    )
+
     private var clickCount = 0
 
     @UpdateOnViewBound
     private var textViewText by changeAwareProperty("start", onChanged = {
         view?.find<TextView>(R.id.textView_counterText)?.text = it
     })
-
-    override fun subscriptionMappings(view: View) = mapOf(
-            view.find<Button>(R.id.button_increment).clicks() to { presenter.onButtonPressed() },
-            view.find<Button>(R.id.button_openNewScreen).clicks() to { presenter.next() }
-    )
 
     override fun incrementCounter() {
         clickCount ++

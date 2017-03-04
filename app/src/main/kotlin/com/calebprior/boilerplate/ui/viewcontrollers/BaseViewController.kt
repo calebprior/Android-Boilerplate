@@ -53,6 +53,8 @@ abstract class BaseViewController(
         presenter().attachView(this)
 
         // Call the getter for each property marked with UpdateOnViewBound, to force onChange to run
+        // This allows the the configured mappings to update their respective views with the current
+        // value of the objects
         this.javaClass.kotlin.declaredMemberProperties
                 .filterIsInstance<KProperty<*>>()
                 .filter { it.annotations.any { it.annotationClass == UpdateOnViewBound::class } }
@@ -84,12 +86,7 @@ abstract class BaseViewController(
     }
 
     override fun hideKeyboard() {
-        var view = activity?.currentFocus
-
-        if (view == null) {
-            view = View(activity)
-        }
-
+        val view = activity?.currentFocus ?: View(activity)
         activity?.inputMethodManager?.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
@@ -100,9 +97,11 @@ abstract class BaseViewController(
             actionText: String,
             action: () -> Unit
     ) {
-        val snackBar = Snackbar.make(activity !!.find(id), message, length)
-        snackBar.setAction(actionText, { action() })
-        snackBar.show()
+        activity?.let {
+            Snackbar.make(it.find(id), message, length)
+                    .setAction(actionText, { action() })
+                    .show()
+        }
     }
 
     override fun onDestroy() {
