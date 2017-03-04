@@ -22,6 +22,8 @@ class HomeViewController(args: Bundle? = null) : BaseViewController(args), HomeV
     override fun viewContent() = R.layout.view_home
     override fun presenter() = presenter
 
+    private var clickCount = 0
+
     @UpdateOnViewBound
     private var textViewText by changeAwareProperty("start", onChanged = {
         view?.find<TextView>(R.id.textView)?.text = it
@@ -32,7 +34,8 @@ class HomeViewController(args: Bundle? = null) : BaseViewController(args), HomeV
             view.find<Button>(R.id.button2).clicks() to { presenter.next() }
     )
 
-    override fun setText(newText: String) {
-        textViewText = newText
+    override fun incrementCounter() {
+        clickCount ++
+        textViewText = "Clicked: $clickCount"
     }
 }

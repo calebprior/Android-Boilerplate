@@ -15,7 +15,7 @@ class HomeViewPresenter(
 
         runDelayed(1000) {
             view?.stopLoading()
-            view?.setText("Finished")
+            view?.incrementCounter()
         }
     }
 
