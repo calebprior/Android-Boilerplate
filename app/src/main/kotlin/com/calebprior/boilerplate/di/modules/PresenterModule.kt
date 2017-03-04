@@ -9,7 +9,6 @@ import dagger.Provides
 
 
 @Module
-@ApplicationScope
 class PresenterModule(val context: Context) {
 
     @Provides
