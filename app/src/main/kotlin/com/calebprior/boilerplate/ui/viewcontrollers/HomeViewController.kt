@@ -9,7 +9,6 @@ import com.calebprior.boilerplate.changeAwareProperty
 import com.calebprior.boilerplate.ui.presenters.HomeViewPresenter
 import com.calebprior.boilerplate.ui.views.HomeView
 import com.jakewharton.rxbinding.view.clicks
-import com.pawegio.kandroid.find
 
 class HomeViewController(
         args: Bundle? = null
@@ -26,7 +25,7 @@ class HomeViewController(
 
     @UpdateOnViewBound
     private var textViewText by changeAwareProperty("start", onChanged = {
-        view?.find<TextView>(R.id.textView_counterText)?.text = it
+        find<TextView>(R.id.textView_counterText).text = it
     })
 
     override fun incrementCounter() {
