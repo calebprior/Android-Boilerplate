@@ -18,8 +18,8 @@ open class Presenter<V : BaseView>(
     open fun afterDetach() {}
     open fun afterError() {}
 
-    fun attachView(view: BaseView) {
-        this.view = view as V
+    fun attachView(view: V) {
+        this.view = view
         afterAttach()
     }
 

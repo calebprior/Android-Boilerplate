@@ -14,7 +14,7 @@ import com.pawegio.kandroid.find
 
 class HomeViewController(
         args: Bundle? = null
-) : BaseViewController<HomeViewPresenter>(args), HomeView {
+) : BaseViewController<HomeViewPresenter, HomeView>(args), HomeView {
 
     override fun viewContent() = R.layout.view_home
 

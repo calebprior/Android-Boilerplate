@@ -26,7 +26,7 @@ import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.jvm.isAccessible
 
 
-abstract class BaseViewController<P : Presenter<*>>(
+abstract class BaseViewController<P : Presenter<V>, V : BaseView>(
         args: Bundle?
 ) : Controller(args), BaseView, AnkoLogger {
 
@@ -51,7 +51,7 @@ abstract class BaseViewController<P : Presenter<*>>(
 
     override fun onAttach(view: View) {
         applicationContext?.inject(this)
-        presenter.attachView(this)
+        presenter.attachView(this as V)
 
         // Call the getter for each property marked with UpdateOnViewBound, to force onChange to run
         // This allows the the configured mappings to update their respective views with the current
