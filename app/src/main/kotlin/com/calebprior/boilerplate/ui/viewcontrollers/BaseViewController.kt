@@ -32,7 +32,7 @@ abstract class BaseViewController<P : Presenter<V>, V : BaseView>(
 
     abstract fun viewContent(): Int
     open fun onViewBound(view: View) {}
-    open fun subscriptionMappings(view: View) = emptyMap<Observable<Unit>, () -> Unit>()
+    open fun subscriptionMappings() = emptyMap<Observable<Unit>, () -> Unit>()
 
     @Inject
     lateinit var presenter: P
@@ -64,7 +64,7 @@ abstract class BaseViewController<P : Presenter<V>, V : BaseView>(
                     it.getter.call(this)
                 }
 
-        subscriptionMappings(view).forEach {
+        subscriptionMappings().forEach {
             observable, action ->
             subs.add(observable.subscribe { action.invoke() })
         }
@@ -121,5 +121,13 @@ abstract class BaseViewController<P : Presenter<V>, V : BaseView>(
         if (isDestroyed) {
             BoilerplateApplication.refWatcher.watch(this)
         }
+    }
+
+    inline fun <reified T : View> find(id: Int): T {
+        view?.let {
+            return it.find<T>(id)
+        }
+
+        throw Exception("view not ready!")
     }
 }

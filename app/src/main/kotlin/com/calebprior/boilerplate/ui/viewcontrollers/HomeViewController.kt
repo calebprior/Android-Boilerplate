@@ -1,7 +1,6 @@
 package com.calebprior.boilerplate.ui.viewcontrollers
 
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import com.calebprior.boilerplate.R
@@ -18,9 +17,9 @@ class HomeViewController(
 
     override fun viewContent() = R.layout.view_home
 
-    override fun subscriptionMappings(view: View) = mapOf(
-            view.find<Button>(R.id.button_increment).clicks() to { presenter.onButtonPressed() },
-            view.find<Button>(R.id.button_openNewScreen).clicks() to { presenter.next() }
+    override fun subscriptionMappings() = mapOf(
+            find<Button>(R.id.button_increment).clicks() to { presenter.onButtonPressed() },
+            find<Button>(R.id.button_openNewScreen).clicks() to { presenter.next() }
     )
 
     private var clickCount = 0
