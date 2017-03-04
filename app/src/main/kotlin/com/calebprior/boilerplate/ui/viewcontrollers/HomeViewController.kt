@@ -11,7 +11,6 @@ import com.calebprior.boilerplate.ui.presenters.HomeViewPresenter
 import com.calebprior.boilerplate.ui.views.HomeView
 import com.jakewharton.rxbinding.view.clicks
 import com.pawegio.kandroid.find
-import javax.inject.Inject
 
 class HomeViewController(
         args: Bundle? = null
