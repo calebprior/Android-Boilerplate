@@ -14,7 +14,7 @@ class HomeViewPresenter(
         view?.showLoading()
 
         runDelayed(1000) {
-            view?.stopLoading()
+            stopLoading()
             view?.incrementCounter()
         }
     }
