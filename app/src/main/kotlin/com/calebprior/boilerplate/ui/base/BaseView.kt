@@ -1,4 +1,4 @@
-package com.calebprior.boilerplate.ui.views
+package com.calebprior.boilerplate.ui.base
 
 import android.support.design.widget.Snackbar
 import com.calebprior.boilerplate.R

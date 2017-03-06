@@ -1,4 +1,4 @@
-package com.calebprior.boilerplate
+package com.calebprior.boilerplate.utility
 
 import kotlin.properties.ObservableProperty
 import kotlin.properties.ReadWriteProperty

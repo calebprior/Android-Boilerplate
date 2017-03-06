@@ -4,6 +4,7 @@ import android.annotation.TargetApi
 import android.os.Build
 import android.support.v4.view.GravityCompat
 import android.transition.*
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
@@ -14,24 +15,31 @@ import org.jetbrains.anko.childrenSequence
 
 
 class SharedSlideChangeHandlerCompat(
-        reverse: Boolean = false
+        reverse: Boolean = false,
+        leftToRight:Boolean = true
 ) : TransitionChangeHandlerCompat(
-        ArcFadeMoveChangeHandler(reverse),
+        ArcFadeMoveChangeHandler(reverse, leftToRight),
         FadeChangeHandler()
 ) {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private class ArcFadeMoveChangeHandler(val reverse: Boolean = false) : TransitionChangeHandler(), AnkoLogger {
+    private class ArcFadeMoveChangeHandler(val reverse: Boolean = false, var leftToRight:Boolean = true) : TransitionChangeHandler(), AnkoLogger {
 
         override fun getTransition(container: ViewGroup, from: View?, to: View?, isPush: Boolean): Transition {
 
             val outgoingSlide = Slide()
             outgoingSlide.duration = 500
-            outgoingSlide.slideEdge = GravityCompat.getAbsoluteGravity(GravityCompat.START, container.layoutDirection)
 
             val incomingSlide = Slide()
             incomingSlide.duration = 500
-            incomingSlide.slideEdge = GravityCompat.getAbsoluteGravity(GravityCompat.END, container.layoutDirection)
+
+            if(leftToRight) {
+                outgoingSlide.slideEdge = GravityCompat.getAbsoluteGravity(GravityCompat.START, container.layoutDirection)
+                incomingSlide.slideEdge = GravityCompat.getAbsoluteGravity(GravityCompat.END, container.layoutDirection)
+            } else {
+                outgoingSlide.slideEdge = Gravity.TOP
+                incomingSlide.slideEdge = Gravity.BOTTOM
+            }
 
             var overlapSharedViews = emptyList<View>()
 

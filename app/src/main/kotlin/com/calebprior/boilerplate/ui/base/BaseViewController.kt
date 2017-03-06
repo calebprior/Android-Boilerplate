@@ -1,4 +1,4 @@
-package com.calebprior.boilerplate.ui.viewcontrollers
+package com.calebprior.boilerplate.ui.base
 
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -9,11 +9,11 @@ import com.bluelinelabs.conductor.Controller
 import com.bluelinelabs.conductor.ControllerChangeHandler
 import com.bluelinelabs.conductor.ControllerChangeType
 import com.calebprior.boilerplate.BoilerplateApplication
-import com.calebprior.boilerplate.UpdateOnViewBound
+import com.calebprior.boilerplate.utility.UpdateOnViewBound
 import com.calebprior.boilerplate.flowcontrol.FlowController
 import com.calebprior.boilerplate.ui.CustomProgressBar
-import com.calebprior.boilerplate.ui.presenters.Presenter
-import com.calebprior.boilerplate.ui.views.BaseView
+import com.calebprior.boilerplate.ui.base.BasePresenter
+import com.calebprior.boilerplate.ui.base.BaseView
 import com.nobleworks_software.injection.android.kotlin.inject
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.find
@@ -26,7 +26,7 @@ import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.jvm.isAccessible
 
 
-abstract class BaseViewController<P : Presenter<V>, V : BaseView>(
+abstract class BaseViewController<P : BasePresenter<V>, V : BaseView>(
         args: Bundle?
 ) : Controller(args), BaseView, AnkoLogger {
 

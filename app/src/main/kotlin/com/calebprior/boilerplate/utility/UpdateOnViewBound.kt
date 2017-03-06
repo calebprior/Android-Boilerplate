@@ -1,4 +1,4 @@
-package com.calebprior.boilerplate
+package com.calebprior.boilerplate.utility
 
 
 @Target(AnnotationTarget.PROPERTY)

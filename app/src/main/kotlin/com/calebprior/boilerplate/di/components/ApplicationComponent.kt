@@ -6,9 +6,8 @@ import com.calebprior.boilerplate.di.modules.ApplicationModule
 import com.calebprior.boilerplate.di.modules.PresenterModule
 import com.calebprior.boilerplate.di.scopes.ApplicationScope
 import com.calebprior.boilerplate.flowcontrol.FlowController
-import com.calebprior.boilerplate.ui.presenters.HomeViewPresenter
-import com.calebprior.boilerplate.ui.viewcontrollers.BaseViewController
 import com.calebprior.boilerplate.ui.viewcontrollers.HomeViewController
+import com.calebprior.boilerplate.ui.viewcontrollers.RecyclerViewController
 import dagger.Component
 
 
@@ -25,8 +24,11 @@ interface ApplicationComponent {
 
     // Application Level
     fun inject(application: BoilerplateApplication)
+
     fun inject(mainActivity: MainActivity)
 
     // Injection targets
     fun inject(homeViewController: HomeViewController)
+
+    fun inject(recyclerViewController: RecyclerViewController)
 }

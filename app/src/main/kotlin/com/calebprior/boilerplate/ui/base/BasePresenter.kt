@@ -1,14 +1,14 @@
-package com.calebprior.boilerplate.ui.presenters
+package com.calebprior.boilerplate.ui.base
 
 import android.support.design.widget.Snackbar
 import com.calebprior.boilerplate.R
 import com.calebprior.boilerplate.flowcontrol.FlowController
-import com.calebprior.boilerplate.ui.views.BaseView
+import com.calebprior.boilerplate.ui.base.BaseView
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
 
-open class Presenter<V : BaseView>(
+open class BasePresenter<V : BaseView>(
         var flowController: FlowController
 ) : AnkoLogger {
 

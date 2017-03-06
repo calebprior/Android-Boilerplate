@@ -4,15 +4,15 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import com.calebprior.boilerplate.R
-import com.calebprior.boilerplate.UpdateOnViewBound
-import com.calebprior.boilerplate.changeAwareProperty
-import com.calebprior.boilerplate.ui.presenters.HomeViewPresenter
-import com.calebprior.boilerplate.ui.views.HomeView
+import com.calebprior.boilerplate.ui.base.BaseViewController
+import com.calebprior.boilerplate.ui.contracts.HomeContract
+import com.calebprior.boilerplate.utility.UpdateOnViewBound
+import com.calebprior.boilerplate.utility.changeAwareProperty
 import com.jakewharton.rxbinding.view.clicks
 
 class HomeViewController(
         args: Bundle? = null
-) : BaseViewController<HomeViewPresenter, HomeView>(args), HomeView {
+) : BaseViewController<HomeContract.Presenter, HomeContract.View>(args), HomeContract.View {
 
     override fun viewContent() = R.layout.view_home
 
