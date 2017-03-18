@@ -3,6 +3,7 @@ package com.calebprior.boilerplate
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.bluelinelabs.conductor.Conductor
+import com.calebprior.ExampleAnnotation
 import com.calebprior.boilerplate.flowcontrol.FlowController
 import com.nobleworks_software.injection.android.kotlin.inject
 import kotlinx.android.synthetic.main.activity_main.*
@@ -21,6 +22,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
         inject()
 
+        GeneratedByProcessorInKotlin.main(arrayOf("test"))
+
         val router = Conductor.attachRouter(this, controller_container, savedInstanceState)
         flowController.attachRouter(router)
 
@@ -32,4 +35,9 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             super.onBackPressed()
         }
     }
+}
+
+@ExampleAnnotation
+class test2 {
+
 }

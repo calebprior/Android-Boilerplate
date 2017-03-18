@@ -1,0 +1,12 @@
+apply plugin: 'kotlin'
+apply plugin: 'java'
+
+dependencies {
+    compile project(":processor-runtime")
+    compile 'com.squareup:javapoet:1.8.0'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile 'com.google.auto.service:auto-service:1.0-rc2'
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"

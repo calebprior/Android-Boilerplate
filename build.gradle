@@ -2,8 +2,8 @@
 
 buildscript {
     ext {
-        kotlin_version = '1.1.0'
-        gradle_version = '2.3.0-beta4'
+        kotlin_version = '1.1.1-eap-26'
+        gradle_version = '2.3.0'
 
         androidSupport_version = '25.1.1'
         constraintLayout_version = '1.0.1'
@@ -25,7 +25,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0'
+        classpath "com.android.tools.build:gradle:$gradle_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
