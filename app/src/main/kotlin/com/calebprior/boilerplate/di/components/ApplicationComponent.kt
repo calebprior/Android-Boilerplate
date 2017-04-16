@@ -8,6 +8,7 @@ import com.calebprior.boilerplate.di.scopes.ApplicationScope
 import com.calebprior.boilerplate.flowcontrol.FlowController
 import com.calebprior.boilerplate.ui.viewcontrollers.HomeViewController
 import com.calebprior.boilerplate.ui.viewcontrollers.RecyclerViewController
+import com.calebprior.boilerplate.ui.viewcontrollers.TestViewController
 import dagger.Component
 
 
@@ -31,4 +32,6 @@ interface ApplicationComponent {
     fun inject(homeViewController: HomeViewController)
 
     fun inject(recyclerViewController: RecyclerViewController)
+
+    fun inject(testViewController: TestViewController)
 }

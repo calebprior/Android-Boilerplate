@@ -2,6 +2,8 @@ package com.calebprior.boilerplate.di.modules
 
 import android.content.Context
 import com.calebprior.boilerplate.flowcontrol.FlowController
+import com.calebprior.boilerplate.ui.base.BasePresenter
+import com.calebprior.boilerplate.ui.base.BaseView
 import com.calebprior.boilerplate.ui.contracts.HomeContract
 import com.calebprior.boilerplate.ui.contracts.RecyclerExampleContract
 import dagger.Module
@@ -22,5 +24,11 @@ class PresenterModule(val context: Context) {
             flowController: FlowController
     ): RecyclerExampleContract.Presenter
             = RecyclerExampleContract.Presenter(flowController)
+
+    @Provides
+    fun provideBasePresenter(
+            flowController: FlowController
+    ): BasePresenter<BaseView>
+            = BasePresenter(flowController)
 
 }

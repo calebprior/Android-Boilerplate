@@ -5,6 +5,7 @@ import com.bluelinelabs.conductor.RouterTransaction
 import com.calebprior.boilerplate.ui.transisitions.SharedSlideChangeHandlerCompat
 import com.calebprior.boilerplate.ui.viewcontrollers.HomeViewController
 import com.calebprior.boilerplate.ui.viewcontrollers.RecyclerViewController
+import com.calebprior.boilerplate.ui.viewcontrollers.TestViewController
 import org.jetbrains.anko.AnkoLogger
 
 
@@ -13,7 +14,7 @@ class BasicFlowController(
 ) : FlowController, AnkoLogger {
 
     override fun goToTest() {
-        router.pushController(RouterTransaction.with(RecyclerViewController())
+        router.pushController(RouterTransaction.with(TestViewController())
                 .pushChangeHandler(SharedSlideChangeHandlerCompat(leftToRight = false))
                 .popChangeHandler(SharedSlideChangeHandlerCompat(leftToRight = false)))
     }
