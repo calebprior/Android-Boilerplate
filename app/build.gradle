@@ -5,8 +5,8 @@ apply plugin: 'kotlin-kapt'
 
 android {
 
-    compileSdkVersion 26
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
 
     signingConfigs {
         release
@@ -15,7 +15,7 @@ android {
     defaultConfig {
         applicationId "com.calebprior.boilerplate"
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -48,70 +48,70 @@ kapt {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile "com.android.support:multidex:1.0.1"
+    implementation "com.android.support:multidex:1.0.3"
 
-    compile 'org.jetbrains.kotlin:kotlin-reflect:1.1.1'
+    implementation 'org.jetbrains.kotlin:kotlin-reflect:1.2.51'
 
-    compile 'jp.wasabeef:recyclerview-animators:2.2.5'
+    implementation 'jp.wasabeef:recyclerview-animators:2.2.5'
 
-    compile 'com.google.code.gson:gson:2.8.0'
+    implementation 'com.google.code.gson:gson:2.8.2'
 
-    compile 'com.squareup.retrofit2:retrofit:2.2.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.2.0'
-    compile 'com.squareup.okhttp3:okhttp:3.6.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.2.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.2.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
 
     // Android support libraries
-    compile 'com.android.support:design:26.0.0-alpha1'
-    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
-    compile 'com.android.support:transition:26.0.0-alpha1'
-    compile 'com.android.support:support-core-utils:26.0.0-alpha1'
-    compile "com.android.support.constraint:constraint-layout:$constraintLayout_version"
+    implementation "com.android.support:design:$androidSupport_version"
+    implementation "com.android.support:appcompat-v7:$androidSupport_version"
+    implementation "com.android.support:transition:$androidSupport_version"
+    implementation "com.android.support:support-core-utils:$androidSupport_version"
+    implementation "com.android.support.constraint:constraint-layout:$constraintLayout_version"
 
     // Dagger 2
-    compile 'com.google.dagger:dagger:2.10'
+    implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
-    provided "org.glassfish:javax.annotation:10.0-b28"
+    compileOnly "org.glassfish:javax.annotation:10.0-b28"
 
     // DI
-    compile "com.gitlab.NobleworksSoftware.NobleInjection:android-injection-service:$nobleInjection_version"
-    compile "com.gitlab.NobleworksSoftware.NobleInjection:android-injection-service-kotlin:$nobleInjection_version"
-    compile "com.gitlab.NobleworksSoftware.NobleInjection:generic-component-compiler:$nobleInjection_version"
-    compile "com.gitlab.NobleworksSoftware.NobleInjection:generic-component-runtime:$nobleInjection_version"
+    implementation "com.gitlab.NobleworksSoftware.NobleInjection:android-injection-service:$nobleInjection_version"
+    implementation "com.gitlab.NobleworksSoftware.NobleInjection:android-injection-service-kotlin:$nobleInjection_version"
+    kapt "com.gitlab.NobleworksSoftware.NobleInjection:generic-component-compiler:$nobleInjection_version"
+    implementation "com.gitlab.NobleworksSoftware.NobleInjection:generic-component-runtime:$nobleInjection_version"
 
     // Kotlin
-    compile 'org.jetbrains.kotlin:kotlin-stdlib:1.1.1'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.2.51'
 
     // Anko
-    compile "org.jetbrains.anko:anko-sdk15:$anko_version"
-    compile "org.jetbrains.anko:anko-common:$anko_version"
-    compile "org.jetbrains.anko:anko-design:$anko_version"
-    compile "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
+    implementation "org.jetbrains.anko:anko-sdk15:$anko_version"
+    implementation "org.jetbrains.anko:anko-common:$anko_version"
+    implementation "org.jetbrains.anko:anko-design:$anko_version"
+    implementation "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
 
     // RxBindings
-    compile 'com.jakewharton.rxbinding:rxbinding-kotlin:1.0.1'
-    compile 'com.jakewharton.rxbinding:rxbinding-design-kotlin:1.0.1'
-    compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7-kotlin:1.0.1'
+    implementation 'com.jakewharton.rxbinding:rxbinding-kotlin:1.0.1'
+    implementation 'com.jakewharton.rxbinding:rxbinding-design-kotlin:1.0.1'
+    implementation 'com.jakewharton.rxbinding:rxbinding-appcompat-v7-kotlin:1.0.1'
 
     // KAndroid - helps remove various boilerplate code
-    compile "com.pawegio.kandroid:kandroid:$kandroid_version"
+    implementation "com.pawegio.kandroid:kandroid:$kandroid_version"
 
     // View Management
-    compile 'com.bluelinelabs:conductor:2.1.2'
+    implementation 'com.bluelinelabs:conductor:2.1.3'
 
     // Leak Canary
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.3-alpha', {
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.3-alpha', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:cardview-v7:26.0.0-alpha1'
+    testImplementation 'junit:junit:4.12'
+    implementation "com.android.support:cardview-v7:$androidSupport_version"
 }
 
 try {
@@ -125,5 +125,6 @@ try {
     android.signingConfigs.release.keyPassword props.keyAliasPassword
 } catch (Exception ignored) {
 }
+
 buildscript {
 }

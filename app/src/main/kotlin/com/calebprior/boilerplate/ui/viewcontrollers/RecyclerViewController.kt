@@ -11,6 +11,7 @@ import com.bluelinelabs.conductor.ControllerChangeHandler
 import com.bluelinelabs.conductor.ControllerChangeType
 import com.calebprior.boilerplate.R
 import com.calebprior.boilerplate.adapters.FlexibleAdapter
+import com.calebprior.boilerplate.adapters.TestHolder
 import com.calebprior.boilerplate.data.Character
 import com.calebprior.boilerplate.ui.base.BasePresenter
 import com.calebprior.boilerplate.ui.base.BaseView
@@ -20,6 +21,7 @@ import com.jakewharton.rxbinding.view.clicks
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 import okhttp3.OkHttpClient
 import org.jetbrains.anko.find
+import org.jetbrains.anko.info
 import org.jetbrains.anko.onClick
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
@@ -105,8 +107,13 @@ class TestViewController(
         }.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
+                    val a = Holder(it)
+                    a.setSubscription(Consumer {
+                                info { "Test HERE" }
+                            }
+                    )
                     flexibleAdapter.addItem(
-                            Holder(it)
+                            a
                     )
                 }
     }
